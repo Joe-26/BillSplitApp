@@ -31,20 +31,28 @@ def priceCalculation(payload):
             shashank.total += shareEach
         elif i == 3 and payload['People'][i] == '1':
             akshar.total += shareEach
+        elif i == 4 and payload['People'][i] == '1':
+            purav.total += shareEach
+        elif i == 5 and payload['People'][i] == '1':
+            dheeraj.total += shareEach
 
     print('Harsh Total= ', harsh.total)
     print('Joe Total= ', joseph.total)
     print('Shashank Total= ', shashank.total)
     print('Akshar Total= ', akshar.total)
+    print('Purav Total= ', purav.total)
+    print('Dheeraj Total= ', dheeraj.total)
 
     hTotal.configure(text=f'Harsh = {round(harsh.total, 2)}')
     jTotal.configure(text=f'Joseph = {round(joseph.total, 2)}')
     sTotal.configure(text=f'Shashank = {round(shashank.total, 2)}')
     aTotal.configure(text=f'Akshar = {round(akshar.total, 2)}')
+    pTotal.configure(text=f'Purav = {round(purav.total, 2)}')
+    dTotal.configure(text=f'Dheeraj = {round(dheeraj.total, 2)}')
 
 def submit():
     payload = {'Price': priceEntry.get(),
-               'People': [boxH.get(), boxJ.get(), boxS.get(), boxA.get()],
+               'People': [boxH.get(), boxJ.get(), boxS.get(), boxA.get(), boxP.get(), boxD.get()],
                'Tax': [box80.get(), box30.get(), box89.get(), box49.get(), customTax.get()]}
     print("Payload - ", payload)
     priceCalculation(payload)
@@ -58,17 +66,21 @@ def clear():
     joseph.total = 0.0
     shashank.total = 0.0
     akshar.total = 0.0
+    purav.total = 0.0
+    dheeraj.total = 0.0
 
     hTotal.configure(text=f'Harsh = {round(harsh.total, 2)}')
     jTotal.configure(text=f'Joseph = {round(joseph.total, 2)}')
     sTotal.configure(text=f'Shashank = {round(shashank.total, 2)}')
     aTotal.configure(text=f'Akshar = {round(akshar.total, 2)}')
+    pTotal.configure(text=f'Purav = {round(purav.total, 2)}')
+    dTotal.configure(text=f'Dheeraj = {round(dheeraj.total, 2)}')
 
 customtkinter.set_appearance_mode('dark')
 customtkinter.set_default_color_theme('dark-blue')
 
 app = customtkinter.CTk()
-app.geometry("700x500")
+app.geometry("900x700")
 app.title("Bill Split v2")
 app.resizable(width=False, height=False)
 
@@ -83,6 +95,8 @@ harsh = BillSplit('harsh', 0.0)
 joseph = BillSplit('joseph', 0.0)
 shashank = BillSplit('shashank', 0.0)
 akshar = BillSplit('akshar', 0.0)
+purav = BillSplit('purav', 0.0)
+dheeraj = BillSplit('dheeraj', 0.0)
 
 # Frame for people checkboxes
 splitFrame = customtkinter.CTkFrame(app)
@@ -92,6 +106,8 @@ boxH = customtkinter.StringVar(value="0")
 boxJ = customtkinter.StringVar(value="0")
 boxS = customtkinter.StringVar(value="0")
 boxA = customtkinter.StringVar(value="0")
+boxP = customtkinter.StringVar(value="0")
+boxD = customtkinter.StringVar(value="0")
 checkHarsh = customtkinter.CTkCheckBox(splitFrame, text="Harsh", command=checkbox_event,
                                      variable=boxH, onvalue=1, offvalue=0)
 checkJoe = customtkinter.CTkCheckBox(splitFrame, text="Joseph", command=checkbox_event,
@@ -100,10 +116,17 @@ checkSha = customtkinter.CTkCheckBox(splitFrame, text="Shashank", command=checkb
                                      variable=boxS, onvalue=1, offvalue=0)
 checkAka = customtkinter.CTkCheckBox(splitFrame, text="Akshar", command=checkbox_event,
                                      variable=boxA, onvalue=1, offvalue=0)
+checkPur = customtkinter.CTkCheckBox(splitFrame, text="Purav", command=checkbox_event,
+                                     variable=boxP, onvalue=1, offvalue=0)
+checkDhe = customtkinter.CTkCheckBox(splitFrame, text="Dheeraj", command=checkbox_event,
+                                     variable=boxD, onvalue=1, offvalue=0)
 checkHarsh.pack(pady=10, padx=10, side='left')
 checkJoe.pack(pady=10, padx=10, side='left')
+checkSha.pack(pady=10, padx=10, side='left')
 checkAka.pack(pady=10, padx=10, side='left')
-checkSha.pack(pady=10, padx=10)
+checkPur.pack(pady=10, padx=10, side='left')
+checkDhe.pack(pady=10, padx=10, side='left')
+
 
 
 # Frame for Tax
@@ -151,6 +174,10 @@ sTotal = customtkinter.CTkLabel(app, text='Shashank = ' + str(shashank.total))
 sTotal.pack(pady=10)
 aTotal = customtkinter.CTkLabel(app, text='Akshar = ' + str(akshar.total))
 aTotal.pack(pady=10)
+pTotal = customtkinter.CTkLabel(app, text='Purav = ' + str(purav.total))
+pTotal.pack(pady=10)
+dTotal = customtkinter.CTkLabel(app, text='Dheeraj = ' + str(dheeraj.total))
+dTotal.pack(pady=10)
 
 # Clear/Reset Button
 clearButton = customtkinter.CTkButton(app, text='Clear', command=clear)
